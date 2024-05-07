@@ -13,7 +13,7 @@ const Product: React.FC<ProductProps> = ({ title, id, images, price }) => {
   const dispatch = useDispatch();
   return (
     <div className=" mt-3 w-52 ">
-      <div className=" flex flex-col gap-y-3 shadow-md px-3 py-1 rounded-md">
+      <div className=" flex flex-col gap-y-3 shadow-md px-3 py-3 rounded-md">
         <p className=" text-xl font-semibold">{title}</p>
 
         <div className="relative" style={{ width: "100%", height: "230px" }}>

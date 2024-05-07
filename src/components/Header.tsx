@@ -1,20 +1,28 @@
 "use client";
 import { RootState } from "@/app/redux/store";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { CiMenuFries } from "react-icons/ci";
 import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Header = () => {
   // const cartItems = useSelector(state => state.cart)
+  const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.cart);
+
+  console.log("check ", isOpen);
+
   return (
-    <header className=" flex justify-between px-5 py-3 bg-gray-800 text-white sticky top-0 z-50">
+    <header className=" flex justify-between px-5 py-3 bg-gray-800 text-white sticky top-0 z-50 ">
       <div>
         <Link href={"/"} className=" text-xl font-semibold">
           Logo
         </Link>
       </div>
-      <div className=" flex gap-x-3">
+      <div className=" flex gap-x-5">
         <Link href={"/"}>Shop</Link>
         <Link href={"/cart"}>
           <div className=" flex items-center relative">
@@ -24,7 +32,52 @@ const Header = () => {
             </div>
           </div>{" "}
         </Link>
+        <div>
+          <CgProfile
+            onClick={() => setIsOpen(!isOpen)}
+            className=" text-2xl hidden md:block"
+          />
+          {isOpen ? (
+            <p
+              onClick={() => setIsOpen(!isOpen)}
+              className=" text-2xl block md:hidden"
+            >
+              X
+            </p>
+          ) : (
+            <CiMenuFries
+              onClick={() => setIsOpen(!isOpen)}
+              className=" text-2xl block md:hidden"
+            />
+          )}
+        </div>
       </div>
+      {isOpen && (
+        <motion.div
+          initial={{ x: 100 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            x: { type: "spring", stiffness: 60 },
+            ease: "easeIn",
+            duration: 1,
+          }}
+          className=" fixed top-[52px] right-0  z-40 cursor-pointer text-white bg-black/55 md:bg-black/50  min-h-screen w-full  "
+        >
+          <div
+            onClick={() => setIsOpen(!isOpen)}
+            className=" flex items-end justify-end  "
+          >
+            <div className=" w-full  md:w-[30%]  min-h-screen  md:bg-black">
+              <ul className="  font-semibold text-xl flex flex-col items-center my-3">
+                <li>Profile</li>
+                <li>Cart</li>
+                <li>Sign in</li>
+              </ul>
+            </div>
+          </div>
+        </motion.div>
+      )}
     </header>
   );
 };

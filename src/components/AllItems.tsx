@@ -17,7 +17,7 @@ const AllItems = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto min-h-screen ">
+    <div className="max-w-5xl mx-auto min-h-screen mt-8 ">
       {cartitems.length !== 0 && (
         <div className=" flex items-center justify-center">
           <div className=" mt-2">
@@ -28,11 +28,11 @@ const AllItems = () => {
           </div>
         </div>
       )}
-      <div className=" grid grid-cols-1 md:grid-cols-4 gap-x-0 md:gap-x-3 gap-y-2 px-4 mt-4">
+      <div className=" grid grid-cols-1 md:grid-cols-4 gap-x-0 md:gap-x-3 gap-y-2 px-4 mt-3">
         {cartitems.map((items: any) => (
           <div
             key={items?.id}
-            className=" bg-white shadow-md px-3 py-1 rounded-md"
+            className=" bg-white shadow-md px-3 py-3 rounded-md"
           >
             <div>
               <p className=" text-2xl font-semibold ">{items?.title}</p>
@@ -75,7 +75,7 @@ const AllItems = () => {
         </div>
       )}
       {cartitems.length === 0 && (
-        <div className=" flex flex-col items-center">
+        <div className=" flex flex-col items-center justify-center min-h-screen ">
           <div>
             <p>Your cart is empty</p>
           </div>

@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       <div className=" max-w-5xl mx-auto min-h-screen  ">
         <h1 className=" text-2xl mt-3 font-semibold text-center">
-          Add to Cart{" "}
+          Buy new product{" "}
         </h1>
 
         <div className=" flex items-center justify-center w-full ">
