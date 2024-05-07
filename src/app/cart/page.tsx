@@ -2,7 +2,7 @@ import AllItems from "@/components/AllItems";
 
 const CartItems = () => {
   return (
-    <div>
+    <div className="">
       <AllItems />
     </div>
   );

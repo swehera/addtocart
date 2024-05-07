@@ -65,7 +65,7 @@ const AllItems = () => {
         ))}
       </div>
       {cartitems.length !== 0 && (
-        <div className=" flex items-center justify-center mt-4">
+        <div className=" flex items-center justify-center mt-4 mb-10">
           <button
             onClick={() => dispatch(clearCart())}
             className=" px-3 py-1 rounded-md bg-red-900 text-white font-bold"
