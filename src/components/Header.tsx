@@ -1,6 +1,7 @@
 "use client";
 import { RootState } from "@/app/redux/store";
 import Link from "next/link";
+import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const Header = () => {
@@ -15,7 +16,14 @@ const Header = () => {
       </div>
       <div className=" flex gap-x-3">
         <Link href={"/"}>Shop</Link>
-        <Link href={"/cart"}>Cart {cartItems.length}</Link>
+        <Link href={"/cart"}>
+          <div className=" flex items-center relative">
+            <FaShoppingCart className=" text-2xl" />
+            <div className=" px-[6px] bg-yellow-600 rounded-full text-sm absolute left-4 bottom-3">
+              {cartItems.length}
+            </div>
+          </div>{" "}
+        </Link>
       </div>
     </header>
   );
