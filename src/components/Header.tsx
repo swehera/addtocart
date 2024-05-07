@@ -8,7 +8,7 @@ const Header = () => {
   // const cartItems = useSelector(state => state.cart)
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   return (
-    <header className=" flex justify-between px-5 py-3 bg-gray-800 text-white">
+    <header className=" flex justify-between px-5 py-3 bg-gray-800 text-white sticky top-0 z-50">
       <div>
         <Link href={"/"} className=" text-xl font-semibold">
           Logo
