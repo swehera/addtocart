@@ -2,6 +2,7 @@
 
 import { clearCart, removeFromCart } from "@/app/redux/cartSlice";
 import { RootState } from "@/app/redux/store";
+import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 
 const AllItems = () => {
@@ -34,8 +35,21 @@ const AllItems = () => {
             onClick={() => dispatch(clearCart())}
             className=" px-3 py-1 rounded-md bg-red-900 text-white font-bold"
           >
-            Remove All
+            reset cart
           </button>
+        </div>
+      )}
+      {cartitems.length === 0 && (
+        <div className=" flex flex-col items-center">
+          <div>
+            <p>Your cart is empty</p>
+          </div>
+          <Link
+            href={"/"}
+            className=" bg-black text-white px-3 py-1 rounded-md text-sm"
+          >
+            go to shopping
+          </Link>
         </div>
       )}
     </div>
