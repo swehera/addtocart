@@ -7,9 +7,16 @@ interface ProductProps {
   id: number;
   images: string;
   price: number;
+  quantity: number;
 }
 
-const Product: React.FC<ProductProps> = ({ title, id, images, price }) => {
+const Product: React.FC<ProductProps> = ({
+  title,
+  id,
+  images,
+  price,
+  quantity,
+}) => {
   const dispatch = useDispatch();
   return (
     <div className=" mt-3 w-52 ">
@@ -28,7 +35,9 @@ const Product: React.FC<ProductProps> = ({ title, id, images, price }) => {
           Price: <span className=" text-black font-normal">{price} ৳</span>
         </p>
         <button
-          onClick={() => dispatch(addToCart({ title, id, images, price }))}
+          onClick={() =>
+            dispatch(addToCart({ title, id, images, price, quantity }))
+          }
           className=" bg-yellow-500 px-3 py-1 rounded-md"
         >
           Add to Cart

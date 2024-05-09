@@ -7,36 +7,60 @@ import { CgProfile } from "react-icons/cg";
 import { CiMenuFries } from "react-icons/ci";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 const Header = () => {
+  //for get the auth data
+  const { data: session } = useSession();
   // const cartItems = useSelector(state => state.cart)
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.cart);
 
   console.log("check ", isOpen);
+  console.log("cart-items", cartItems);
+
+  // get total quantity
+  const getTotalQuantity = () => {
+    return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  console.log("This is auth data", session);
 
   return (
-    <header className=" flex justify-between px-5 py-3 bg-gray-800 text-white sticky top-0 z-50 ">
+    <header className=" flex  justify-between px-6 py-3 bg-gray-800 text-white sticky top-0 z-50 ">
       <div>
         <Link href={"/"} className=" text-xl font-semibold">
           Logo
         </Link>
       </div>
-      <div className=" flex gap-x-5">
+      <div className=" flex items-center gap-x-5">
         <Link href={"/"}>Shop</Link>
         <Link href={"/cart"}>
           <div className=" flex items-center relative">
             <FaShoppingCart className=" text-2xl" />
             <div className=" px-[6px] bg-yellow-600 rounded-full text-sm absolute left-4 bottom-3">
-              {cartItems.length}
+              {getTotalQuantity()}
             </div>
           </div>{" "}
         </Link>
         <div>
-          <CgProfile
-            onClick={() => setIsOpen(!isOpen)}
-            className=" text-2xl hidden md:block"
-          />
+          {session?.user ? (
+            <Image
+              src={session?.user?.image!}
+              alt="user image"
+              width={35}
+              height={35}
+              onClick={() => setIsOpen(!isOpen)}
+              className="rounded-full hidden md:block"
+            />
+          ) : (
+            <CgProfile
+              onClick={() => setIsOpen(!isOpen)}
+              className=" text-2xl hidden md:block"
+            />
+          )}
+
           {isOpen ? (
             <p
               onClick={() => setIsOpen(!isOpen)}
@@ -71,8 +95,17 @@ const Header = () => {
             <div className=" w-full  md:w-[30%]  min-h-screen  md:bg-black">
               <ul className="  font-semibold text-xl flex flex-col items-center my-3">
                 <li>Profile</li>
-                <li>Cart</li>
-                <li>Sign in</li>
+                <Link href={"/cart"}>My Cart</Link>
+                {session?.user ? (
+                  <button
+                    onClick={() => signOut()}
+                    className=" text-red-500 font-semibold"
+                  >
+                    Sign Out
+                  </button>
+                ) : (
+                  <Link href={"/login"}>Sign in</Link>
+                )}
               </ul>
             </div>
           </div>
