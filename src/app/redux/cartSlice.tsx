@@ -6,6 +6,7 @@ export interface CartItem {
   title: string;
   price: number;
   quantity: number; // Add quantity property
+  images: any;
 }
 
 export interface CounterState {

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 interface ProductProps {
   title: string;
   id: number;
-  images: string;
+  images: any;
   price: number;
   quantity: number;
 }
