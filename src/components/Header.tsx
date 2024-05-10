@@ -31,7 +31,7 @@ const Header = () => {
     <header className=" flex  justify-between px-6 py-3 bg-gray-800 text-white sticky top-0 z-50 ">
       <div>
         <Link href={"/"} className=" text-xl font-semibold">
-          Logo
+          E-Cart
         </Link>
       </div>
       <div className=" flex items-center gap-x-5">
