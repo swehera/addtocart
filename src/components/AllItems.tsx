@@ -119,7 +119,9 @@ const AllItems = () => {
                   +
                 </button>
                 <div>
-                  <p>৳ {items.price * items.quantity}</p>
+                  <p className=" font-semibold text-gray-800">
+                    ৳ {items.price * items.quantity}
+                  </p>
                 </div>
               </div>
               <p className=" font-semibold text-red-600">
