@@ -94,7 +94,8 @@ const Header = () => {
           >
             <div className=" w-full  md:w-[30%]  min-h-screen  md:bg-black">
               <ul className="  font-semibold text-xl flex flex-col items-center my-3">
-                <li>Profile</li>
+                <Link href={"/"}>Home</Link>
+                <Link href={"/profile"}>Profile</Link>
                 <Link href={"/cart"}>My Cart</Link>
                 {session?.user ? (
                   <button

@@ -41,6 +41,14 @@ const AllItems = () => {
     );
   };
 
+  // const getSingleProductAmount = () => {
+  //   console.log("This is single product", cartitems);
+  //   console.log(
+  //     "This is single product price",
+  //     cartitems.price * cartitems.quantity
+  //   );
+  // };
+
   //checkout functio for check if not login then give a message
   //checkout function for checking if not logged in then give a message
   const checkoutHandle = () => {
@@ -110,6 +118,9 @@ const AllItems = () => {
                 >
                   +
                 </button>
+                <div>
+                  <p>৳ {items.price * items.quantity}</p>
+                </div>
               </div>
               <p className=" font-semibold text-red-600">
                 Price:{" "}
