@@ -11,7 +11,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "@stripe/stripe-js": "^3.4.0",
+    "bcryptjs": "^2.4.3",
     "framer-motion": "^11.1.9",
+    "mongoose": "^8.3.4",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
     "react": "^18",
@@ -23,6 +25,7 @@
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
