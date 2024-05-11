@@ -17,15 +17,18 @@ const Registration = () => {
     console.log("This is registration user", user);
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3000/api/registration", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: user.username,
-          email: user.email,
-          password: user.password,
-        }),
-      });
+      const response = await fetch(
+        "https://addtocart-heradev.vercel.app/api/registration",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: user.username,
+            email: user.email,
+            password: user.password,
+          }),
+        }
+      );
       const data = await response.json();
 
       console.log(data);
