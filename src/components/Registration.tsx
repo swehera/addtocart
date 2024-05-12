@@ -1,10 +1,21 @@
 "use client";
 
+import { addUser } from "@/app/redux/userSlice";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+
+// interface UserProps {
+//   _id: string;
+//   username: string;
+//   email: string;
+//   password: string; // Add quantity property
+//   isAdmin: boolean;
+// }
 
 const Registration = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({
@@ -19,6 +30,7 @@ const Registration = () => {
     try {
       setLoading(true);
       const response = await fetch(
+        // "https://addtocart-heradev.vercel.app/api/registration",
         "https://addtocart-heradev.vercel.app/api/registration",
         {
           method: "POST",
@@ -36,6 +48,7 @@ const Registration = () => {
 
       if (data?.success === true) {
         toast.success(data?.message);
+        dispatch(addUser(data));
         router.push("/login");
       } else {
         toast.error(data?.error);
@@ -46,6 +59,9 @@ const Registration = () => {
       setLoading(false);
     }
   };
+
+  // Dispatch addUser action to add the user to the Redux store
+
   return (
     <div className="w-[80%] md:w-[30%] mt-5 border border-gray-200 rounded-md p-10 mx">
       <div>

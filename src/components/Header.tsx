@@ -16,9 +16,11 @@ const Header = () => {
   // const cartItems = useSelector(state => state.cart)
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.cart);
+  const userItems = useSelector((state: RootState) => state.user.user);
 
   console.log("check ", isOpen);
   console.log("cart-items", cartItems);
+  console.log("register uesr info from database", userItems);
 
   // get total quantity
   const getTotalQuantity = () => {
@@ -95,9 +97,11 @@ const Header = () => {
             <div className=" w-full  md:w-[30%]  min-h-screen  md:bg-black">
               <ul className="  font-semibold text-xl flex flex-col items-center my-3">
                 <Link href={"/"}>Home</Link>
-                {session?.user && <Link href={"/profile"}>Profile</Link>}
+                {session?.user || userItems.length !== 0 ? (
+                  <Link href="/profile">Profile</Link>
+                ) : null}
                 <Link href={"/cart"}>My Cart</Link>
-                {session?.user ? (
+                {session?.user || userItems.length !== 0 ? (
                   <button
                     onClick={() => signOut()}
                     className=" text-red-500 font-semibold"

@@ -22,6 +22,7 @@ const AllItems = () => {
   const dispatch = useDispatch();
 
   console.log("This is check", cartitems);
+  console.log("This is check register user", cartitems);
 
   // Increment quantity
   const incrementProductQuantity = (id: number) => {

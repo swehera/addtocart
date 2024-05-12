@@ -1,6 +1,7 @@
 import { addToCart } from "@/app/redux/cartSlice";
+import { RootState } from "@/app/redux/store";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 interface ProductProps {
   title: string;
@@ -17,7 +18,11 @@ const Product: React.FC<ProductProps> = ({
   price,
   quantity,
 }) => {
+  //user database data
+  const useritems = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
+  console.log("this is user info mongodb", useritems);
+
   return (
     <div className=" mt-3 w-52 ">
       <div className=" flex flex-col gap-y-3 shadow-md px-3 py-3 rounded-md">
