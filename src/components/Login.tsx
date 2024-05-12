@@ -46,7 +46,7 @@ const Login = () => {
 
       if (data?.success === true) {
         toast.success(data?.message);
-        // router.push("/");
+        router.push("/");
         console.log("This login data", data);
       }
       // else if (session?.user !== null) {
