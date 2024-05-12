@@ -30,8 +30,8 @@ const Registration = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        // "https://addtocart-heradev.vercel.app/api/registration",
         "https://addtocart-heradev.vercel.app/api/registration",
+        // "http://localhost:3000/api/registration",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -1,17 +1,20 @@
 "use client";
 
+import { addUser } from "@/app/redux/userSlice";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
   console.log("This auth info", session);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState({
     username: "",
@@ -33,8 +36,8 @@ const Login = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        // "https://addtocart-heradev.vercel.app/api/login",
         "https://addtocart-heradev.vercel.app/api/login",
+        // "http://localhost:3000/api/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -50,6 +53,7 @@ const Login = () => {
 
       if (data?.success === true) {
         toast.success(data?.message);
+        dispatch(addUser(data));
         router.push("/");
         console.log("This login data", data);
       }

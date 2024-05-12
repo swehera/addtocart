@@ -6,21 +6,26 @@ import { FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { CiMenuFries } from "react-icons/ci";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
 const Header = () => {
   //for get the auth data
   const { data: session } = useSession();
-  // const cartItems = useSelector(state => state.cart)
   const [isOpen, setIsOpen] = useState(false);
   const cartItems = useSelector((state: RootState) => state.cart.cart);
   const userItems = useSelector((state: RootState) => state.user.user);
 
   console.log("check ", isOpen);
   console.log("cart-items", cartItems);
-  console.log("register uesr info from database", userItems);
+  console.log("register user info from database", userItems);
+
+  useEffect(() => {
+    // This function will run every time userItems changes
+    console.log("User items changed:", userItems);
+    // Add your logic here
+  }, [userItems]); // Dependency array ensures the function is called whenever userItems changes
 
   // get total quantity
   const getTotalQuantity = () => {
@@ -30,18 +35,18 @@ const Header = () => {
   console.log("This is auth data", session);
 
   return (
-    <header className=" flex  justify-between px-6 py-3 bg-gray-800 text-white sticky top-0 z-50 ">
+    <header className="flex justify-between px-6 py-3 bg-gray-800 text-white sticky top-0 z-50">
       <div>
-        <Link href={"/"} className=" text-xl font-semibold">
+        <Link href={"/"} className="text-xl font-semibold">
           E-Cart
         </Link>
       </div>
-      <div className=" flex items-center gap-x-5">
+      <div className="flex items-center gap-x-5">
         <Link href={"/"}>Shop</Link>
         <Link href={"/cart"}>
-          <div className=" flex items-center relative">
-            <FaShoppingCart className=" text-2xl" />
-            <div className=" px-[6px] bg-yellow-600 rounded-full text-sm absolute left-4 bottom-3">
+          <div className="flex items-center relative">
+            <FaShoppingCart className="text-2xl" />
+            <div className="px-[6px] bg-yellow-600 rounded-full text-sm absolute left-4 bottom-3">
               {getTotalQuantity()}
             </div>
           </div>{" "}
@@ -59,21 +64,21 @@ const Header = () => {
           ) : (
             <CgProfile
               onClick={() => setIsOpen(!isOpen)}
-              className=" text-2xl hidden md:block"
+              className="text-2xl hidden md:block"
             />
           )}
 
           {isOpen ? (
             <p
               onClick={() => setIsOpen(!isOpen)}
-              className=" text-2xl block md:hidden"
+              className="text-2xl block md:hidden"
             >
               X
             </p>
           ) : (
             <CiMenuFries
               onClick={() => setIsOpen(!isOpen)}
-              className=" text-2xl block md:hidden"
+              className="text-2xl block md:hidden"
             />
           )}
         </div>
@@ -88,14 +93,14 @@ const Header = () => {
             ease: "easeIn",
             duration: 1,
           }}
-          className=" fixed top-[52px] right-0  z-40 cursor-pointer text-white bg-black/55 md:bg-black/50  min-h-screen w-full  "
+          className="fixed top-[52px] right-0 z-40 cursor-pointer text-white bg-black/55 md:bg-black/50 min-h-screen w-full"
         >
           <div
             onClick={() => setIsOpen(!isOpen)}
-            className=" flex items-end justify-end  "
+            className="flex items-end justify-end"
           >
-            <div className=" w-full  md:w-[30%]  min-h-screen  md:bg-black">
-              <ul className="  font-semibold text-xl flex flex-col items-center my-3">
+            <div className="w-full md:w-[30%] min-h-screen md:bg-black">
+              <ul className="font-semibold text-xl flex flex-col items-center my-3">
                 <Link href={"/"}>Home</Link>
                 {session?.user || userItems.length !== 0 ? (
                   <Link href="/profile">Profile</Link>
@@ -104,7 +109,7 @@ const Header = () => {
                 {session?.user || userItems.length !== 0 ? (
                   <button
                     onClick={() => signOut()}
-                    className=" text-red-500 font-semibold"
+                    className="text-red-500 font-semibold"
                   >
                     Sign Out
                   </button>
