@@ -1,38 +1,44 @@
 "use client";
 import { RootState } from "@/app/redux/store";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const ProfilePage = () => {
-  // User database data
   const userItems = useSelector((state: RootState) => state.user.user);
-  // Get the authentication data
   const { data: session } = useSession();
+  const router = useRouter();
 
-  console.log("This is profile page", session);
-  console.log("This is userdata mongodb", userItems);
+  useEffect(() => {
+    // Check if session has data
+    if (session?.user || userItems?.length !== 0) {
+      // Redirect to homepage
+      console.log("session data", session);
+      console.log("This is mongodata", userItems);
+    } else {
+      router.push("/");
+    }
+  }, [session, router]);
+
+  console.log("This user from mongodb", userItems);
 
   return (
     <div>
-      {userItems.length !== 0 ? (
+      {userItems.length !== 0 && userItems[0] ? (
         <div>
-          <p className=" font-bold text-red-600 text-center mt-4">
+          <p className="font-bold text-red-600 text-center mt-4">
             This is MongoDB user data
           </p>
-          <div key={userItems[0]._id}>
-            {/* Check if userItems[0] and userItems[0].saveUser are defined */}
-            {userItems[0] && userItems[0].saveUser && (
-              <>
-                <div className=" flex flex-col items-center">
-                  <p className=" font-semibold">
-                    Name: {userItems[0].saveUser.username}
-                  </p>
-                  <p className=" text-xl">{userItems[0].saveUser.email}</p>
-                  {/* Add more details as needed */}
-                </div>
-              </>
-            )}
+          <div>
+            <div className="flex flex-col items-center">
+              <p className="font-semibold">
+                Name: {userItems[0].loggedData.username}
+              </p>
+              <p className="text-xl">{userItems[0].loggedData.email}</p>
+              {/* Add more details as needed */}
+            </div>
           </div>
         </div>
       ) : (

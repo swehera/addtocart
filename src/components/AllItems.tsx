@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const AllItems = () => {
   const cartitems = useSelector((state: RootState) => state.cart.cart);
+  const userItems = useSelector((state: RootState) => state.user.user);
 
   const { data: session } = useSession();
 
@@ -23,6 +24,7 @@ const AllItems = () => {
 
   console.log("This is check", cartitems);
   console.log("This is check register user", cartitems);
+  // console.log("this is mongobd user", userItems[0].loggedData);
 
   // Increment quantity
   const incrementProductQuantity = (id: number) => {
@@ -53,14 +55,22 @@ const AllItems = () => {
   //checkout functio for check if not login then give a message
   //checkout function for checking if not logged in then give a message
   const checkoutHandle = () => {
-    if (!session?.user) {
-      toast.error("Please sign in to Checkout");
+    // if (!session?.user) {
+    //   toast.error("Please sign in to Checkout");
+    // } else if (userItems?.length === 0) {
+    //   toast.error("Please sign in to Checkout");
+    // } else {
+    //   toast.success("Stripe Operation comming");
+    //   // checkout({
+    //   //   lineItems: [{ price: "price_1PEKdhH7opcGEqwGBHT4JQGl", quantity: 1 }], // Replace with your one-time price ID
+    //   //   mode: "payment", // Switch to payment mode
+    //   // });
+    // }
+    if (!session?.user && userItems?.length == 0) {
+      toast.error("Please sign in to proceed checkout");
     } else {
-      toast.success("Stripe Operation comming");
-      // checkout({
-      //   lineItems: [{ price: "price_1PEKdhH7opcGEqwGBHT4JQGl", quantity: 1 }], // Replace with your one-time price ID
-      //   mode: "payment", // Switch to payment mode
-      // });
+      toast.success("Stripe Operation coming");
+      // Proceed with checkout logic
     }
   };
 

@@ -8,10 +8,18 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 //   password: string; // Add quantity property
 //   isAdmin: boolean;
 // }
-interface UserItem {
-  _id: string;
+interface LoggedData {
+  id: string;
   username: string;
   email: string;
+  // Add other properties if available
+}
+
+interface UserItem {
+  // _id: string;
+  // username: string;
+  // email: string;
+  loggedData: LoggedData; // Include the loggedData property
   // Define saveUser property
   saveUser?: {
     username: string;
@@ -39,8 +47,11 @@ const userSlice = createSlice({
     addUser: (state, action: PayloadAction<UserItem>) => {
       state.user.push(action.payload);
     },
+    clearUser: (state) => {
+      state.user = [];
+    },
   },
 });
 
-export const { addUser } = userSlice.actions; // Export addUser action
+export const { addUser, clearUser } = userSlice.actions; // Export addUser action
 export default userSlice.reducer;

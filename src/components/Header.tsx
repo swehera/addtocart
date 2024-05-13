@@ -5,12 +5,14 @@ import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { CiMenuFries } from "react-icons/ci";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { clearUser } from "@/app/redux/userSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   //for get the auth data
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
@@ -106,15 +108,36 @@ const Header = () => {
                   <Link href="/profile">Profile</Link>
                 ) : null}
                 <Link href={"/cart"}>My Cart</Link>
-                {session?.user || userItems.length !== 0 ? (
+                {session?.user ? (
                   <button
                     onClick={() => signOut()}
                     className="text-red-500 font-semibold"
                   >
                     Sign Out
                   </button>
-                ) : (
-                  <Link href={"/login"}>Sign in</Link>
+                ) : null}
+                {session?.user == null && userItems?.length == 0 ? (
+                  <Link href={"/login"} className=" text-green-400">
+                    Sign in
+                  </Link>
+                ) : null}
+                {/* {session?.user === null && (
+                  <Link href={"/login"} className=" text-green-400">
+                    Sign in
+                  </Link>
+                )}
+                {userItems.length == 0 && (
+                  <Link href={"/login"} className=" text-red-300">
+                    Sign in
+                  </Link>
+                )} */}
+                {userItems.length !== 0 && (
+                  <button
+                    onClick={() => dispatch(clearUser())}
+                    className="text-green-500 font-semibold"
+                  >
+                    Sign Out
+                  </button>
                 )}
               </ul>
             </div>
